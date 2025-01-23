@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+  kali-desktop:
+    image: kasmweb/kali-rolling-desktop:1.16.0
+    container_name: kali_desktop
+    ports:
+      - "6901:6901"  # Mapear puertos
+    environment:
+      - VNC_PW=password  # Contraseña VNC
+    shm_size: 512m  # Tamaño de memoria compartida
+    restart: always  # Siempre reiniciar el contenedor si se cae
+    stdin_open: true  # Mantener la terminal abierta
+    tty: true  # Asignar pseudo-terminal
+     volumes:
+      - /aca la direecion del volumen

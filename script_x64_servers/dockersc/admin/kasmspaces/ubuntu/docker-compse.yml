@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  ubuntu-desktop:
+    image: kasmweb/ubuntu-focal-desktop:1.16.0
+    shm_size: 512m
+    ports:
+      - "6901:6901"
+    environment:
+      - VNC_PW=password
+    restart: unless-stopped
+    volumes:
+      - /aca la direecion del volumen
