@@ -11,10 +11,10 @@ sudo apt update && sudo apt upgrade -y
 sudo apt install -y apt-transport-https ca-certificates curl gnupg software-properties-common
 
 # --- Añadir la clave GPG de Docker ---
-curl -fsSL https://download.docker.com/linux/raspbian/gpg | sudo apt-key add -
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 
-# --- Añadir el repositorio de Docker para arm64 ---
-echo "deb [arch=arm64] https://download.docker.com/linux/raspbian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list
+# --- Añadir el repositorio de Docker para x86_64 ---
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 # --- Actualizar los repositorios ---
 sudo apt update
@@ -40,3 +40,4 @@ docker-compose --version
 
 # --- Mostrar mensaje de éxito ---
 echo "ZeroTier, Docker, Docker Compose han sido instalados exitosamente."
+

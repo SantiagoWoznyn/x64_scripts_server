@@ -1,0 +1,91 @@
+Instala dependencias necesarias :
+
+    sudo apt install -y wget apt-transport-https software-properties-common
+
+Agrega el repositorio de Webmin :
+
+    wget -qO - http://www.webmin.com/jcameron-key.asc | sudo apt-key add -
+    sudo sh -c 'echo "deb http://download.webmin.com/download/repository sarge contrib" > /etc/apt/sources.list.d/webmin.list'
+
+Instala Webmin :
+
+        sudo apt update && sudo apt install -y webmin
+
+Verifica el estado del servicio :
+
+    sudo systemctl status webmin
+
+Si no está corriendo, puedes iniciarlo manualmente:
+
+    sudo systemctl start webmin
+    sudo systemctl enable webmin  # Para que se inicie automáticamente al reiniciar
+
+Acceder a Webmin ::
+Abre tu navegador y accede a:
+
+https://[IP_DE_TU_RASPBERRY]:10000
+
+
+Ejemplo si estás en la Raspberry Pi:
+
+https://localhost:10000
+El usuario por defecto es root, usa la contraseña de tu Raspberry Pi.
+
+Opcional: Cambiar contraseña de Webmin
+Si quieres cambiar la contraseña de root en Webmin, usa:
+
+
+sudo /usr/share/webmin/changepass.pl /etc/webmin root NUEVA_CONTRASEÑA
+
+ya lo tenemos instalado
+
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
+Para desinstalar Webmin de tu Raspberry Pi 4, sigue estos pasos:
+
+📌 1. Detén el servicio de Webmin
+Antes de eliminar Webmin, detén el servicio con el siguiente comando:
+
+bash
+Copiar
+Editar
+sudo systemctl stop webmin
+📌 2. Elimina Webmin
+Ejecuta este comando para desinstalar Webmin:
+
+bash
+Copiar
+Editar
+sudo apt remove --purge webmin -y
+📌 3. Elimina archivos de configuración residuales (opcional)
+Si deseas eliminar cualquier archivo residual de Webmin, puedes ejecutar:
+
+bash
+Copiar
+Editar
+sudo apt autoremove --purge -y
+📌 4. Elimina el repositorio de Webmin
+Si ya no deseas seguir usando el repositorio de Webmin, elimina el archivo de lista del repositorio:
+
+bash
+Copiar
+Editar
+sudo rm /etc/apt/sources.list.d/webmin.list
+📌 5. Elimina la clave del repositorio (opcional)
+También puedes eliminar la clave GPG agregada al sistema:
+
+bash
+Copiar
+Editar
+sudo rm /etc/apt/trusted.gpg.d/webmin.asc
+📌 6. Verifica la desinstalación
+Asegúrate de que Webmin ha sido completamente eliminado al intentar acceder a su interfaz web:
+
+arduino
+Copiar
+Editar
+https://[IP_DE_TU_RASPBERRY]:10000
+No deberías poder acceder si Webmin fue correctamente desinstalado.
+
+¡Y listo! Webmin debería estar completamente desinstalado de tu Raspberry P
