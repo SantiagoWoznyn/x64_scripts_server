@@ -1,1 +1,1 @@
-# x64_scripts_server
+este script se probo mucho mejor en openmediavault
