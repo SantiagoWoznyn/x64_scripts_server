@@ -29,13 +29,24 @@ sudo systemctl status docker --no-pager
 
 # --- Instalar la última versión de Docker Compose ---
 DOCKER_COMPOSE_URL=$(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep browser_download_url | grep "$(uname -s)-$(uname -m)" | cut -d '"' -f 4)
+
+if [ -z "$DOCKER_COMPOSE_URL" ]; then
+    echo "No se pudo obtener la URL de Docker Compose. Descargando manualmente..."
+    DOCKER_COMPOSE_URL="https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)"
+fi
+
 sudo curl -L "$DOCKER_COMPOSE_URL" -o /usr/local/bin/docker-compose
 
 # --- Aplicar permisos de ejecución ---
 sudo chmod +x /usr/local/bin/docker-compose
 
 # --- Verificar que Docker Compose esté instalado ---
-docker-compose --version
+if ! command -v docker-compose &> /dev/null; then
+    echo "docker-compose no encontrado, intentando instalar como plugin..."
+    sudo apt install -y docker-compose-plugin
+fi
+
+docker-compose --version || docker compose version
 
 # --- Mostrar mensaje de éxito ---
 echo "ZeroTier, Docker y la última versión de Docker Compose han sido instalados exitosamente."
